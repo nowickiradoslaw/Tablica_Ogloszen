@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Advert</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ advert.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ advert.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ advert.description }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ advert.photo }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if advert.date %}{{ advert.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            
+            <tr>
+                <th>Autor</th>
+                <td>{{ advert.user.email }}</td>
+            </tr>
+            
+            <tr>
+            
+            </tr>
+                <th>Category</th>
+                
+                {% for category in advert.categories %}
+                    <td>{{ category.advertCategory }}</td>
+                {% endfor %}                                           
+        </tbody>
+    </table>
+
+    <ul>
+              
+        <li>
+            <a href="{{ path('advert_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('advert_edit', { 'id': advert.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    
+     <table>
+        <thead>
+            <tr>
+                <th>Comments list</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in advert.comments %}
+            <tr>
+                <td>{{ comment.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>     
+        
+        
+        <hr>
+        
+        {{ form_start(comment_form) }}
+            <input type="submit" value="Send">    
+        {{ form_end(comment_form) }}
+           
+            
+{% endblock %}
